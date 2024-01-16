@@ -5,9 +5,10 @@ export class PublicPage extends BasePage {
     readonly pageName: Locator;
     readonly publicCheckbox: Locator;
     readonly okButton: Locator;
+    readonly parentOption: Locator;
         
-    readonly profileLink: Locator;
-    readonly logoutLink: Locator;
+    // readonly profileLink: Locator;
+    // readonly logoutLink: Locator;
         
     readonly newlyAddedPageLink: Locator;
 
@@ -17,21 +18,27 @@ export class PublicPage extends BasePage {
         this.pageName = page.locator('#name');
         this.publicCheckbox = page.locator('#ispublic');
         this.okButton = page.getByRole('button', { name: 'OK' });
+        this.parentOption =  page.locator('#parent');
+
+        // this.profileLink = page.getByRole('link', { name: 'administrator' });
+        // this.logoutLink = page.getByRole('link', { name: 'Logout' });
         
-        this.profileLink = page.getByRole('link', { name: 'administrator' });
-        this.logoutLink = page.getByRole('link', { name: 'Logout' });
-        
-        this.newlyAddedPageLink = page.getByRole('link', { name: 'TC014' });
+        this.newlyAddedPageLink = page.getByRole('link', { name: 'Test' });
     }
 
-    async addPage(pageName: string) {
+    async addPage(pageinfo: {name: string, parent?: string}) {
         //Go to Global Setting -> Add page 
         await this.settingLink.click();
         await this.addPageLink.click();
 
         //Fill page's info then click OK
         //Enter Page Name field
-        await this.pageName.fill(pageName);
+        await this.pageName.fill(pageinfo.name);
+
+        if (pageinfo.parent!=undefined){
+            this.parentOption.selectOption(pageinfo.parent);
+        }
+
         //Check Public checkbox
         await this.publicCheckbox.check();
         //Click OK button
@@ -43,7 +50,12 @@ export class PublicPage extends BasePage {
         await this.newlyAddedPageLink.click();
         //Click on Delete button from Setting
         await this.settingLink.click();
-        this.page.on('dialog', dialog => dialog.accept());
+        //this.page.on('dialog', dialog => dialog.accept());
         await this.deletePageLink.click();
+
+        this.page.once('dialog', dialog => {
+            console.log(`Dialog message: ${dialog.message()}`);
+            dialog.accept().catch(() => {});
+            });
     }
 }

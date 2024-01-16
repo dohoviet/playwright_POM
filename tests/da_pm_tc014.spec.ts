@@ -7,7 +7,7 @@ test.describe('Public page', () => {
     //Log in specific repository with valid account
     await loginPage.login("Administrator","");
     //Go to Global Setting -> Add page 
-    await publicPage.addPage("TC014");
+    await publicPage.addPage({name: "TC014"});
     //Click on Log out link
     await loginPage.logout("administrator");
     //Log in with another valid account (potay!)
