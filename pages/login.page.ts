@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "./base.page";
 
 export class LoginPage extends BasePage {
@@ -21,5 +21,18 @@ export class LoginPage extends BasePage {
         await this.username_textbox.fill(username);
         await this.password_textbox.fill(password);
         await this.login_button.click();
+    }
+
+    async verifyErrorMessage(message: string): Promise<void> {
+        this.page.on('dialog', async dialog => {
+        await expect(dialog.message()).toEqual(message);
+        console.log(dialog.message());
+        await dialog.accept();
+        });
+    }
+
+    async logout (profile: string){
+        await this.profileLink.click();
+        await this.logoutLink.click();
     }
 }
