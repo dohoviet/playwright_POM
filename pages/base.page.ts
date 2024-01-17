@@ -8,6 +8,8 @@ export abstract class BasePage {
     readonly addPageLink: Locator;
     readonly deletePageLink: Locator;
     readonly overviewLink: Locator;
+    readonly administerLink: Locator;
+    readonly panelLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -17,5 +19,8 @@ export abstract class BasePage {
         this.addPageLink = page.getByRole('link', { name: 'Add Page' });
         this.deletePageLink = page.getByRole('link', { name: 'Delete' });
         this.overviewLink = page.getByRole('link', { name: 'Overview' });
+        this.administerLink = page.getByRole('link', { name: 'Administer' });
+        this.panelLink = page.getByRole('link', { name: 'Panels' });
+    }
     }
 }

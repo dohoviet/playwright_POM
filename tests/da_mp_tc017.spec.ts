@@ -24,38 +24,3 @@ test.describe('Public page', () => {
     await publicPage.checkDeleteButton();
     });
 });
-// import { test, expect } from '@playwright/test';
-
-// test('test', async ({ page }) => {
-//   await page.locator('body').click();
-//   await page.goto('http://localhost/TADashboard/login.jsp');
-//   await page.getByText('Login SampleRepository Login').click();
-//   await page.getByText('Login').nth(1).click();
-//   await page.getByRole('link', { name: 'Add Page' }).click();
-//   await page.locator('#name').fill('Test');
-//   await page.getByRole('button', { name: 'OK' }).click();
-//   await page.getByRole('link', { name: 'Add Page' }).click();
-//   await page.locator('#name').fill('Test Child');
-//   await page.locator('#parent').selectOption('cyg1bisxz1py');
-//   await page.getByRole('button', { name: 'OK' }).click();
-//   await page.getByRole('link', { name: 'Test', exact: true }).click();
-//   page.once('dialog', dialog => {
-//     console.log(`Dialog message: ${dialog.message()}`);
-//     dialog.dismiss().catch(() => {});
-//   });
-//   await page.getByRole('link', { name: 'Delete' }).click();
-//   await page.getByRole('link', { name: 'Test', exact: true }).click();
-//   await page.getByRole('link', { name: 'Test Child' }).click();
-//   await page.locator('.mn-setting > a').click();
-//   page.once('dialog', dialog => {
-//     console.log(`Dialog message: ${dialog.message()}`);
-//     dialog.dismiss().catch(() => {});
-//   });
-//   await page.getByRole('link', { name: 'Delete' }).click();
-//   await page.getByRole('link', { name: 'Test', exact: true }).click();
-//   page.once('dialog', dialog => {
-//     console.log(`Dialog message: ${dialog.message()}`);
-//     dialog.dismiss().catch(() => {});
-//   });
-//   await page.getByRole('link', { name: 'Delete' }).click();
-// });
