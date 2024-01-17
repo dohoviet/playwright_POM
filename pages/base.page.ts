@@ -7,6 +7,7 @@ export abstract class BasePage {
     readonly profileLink: Locator;
     readonly addPageLink: Locator;
     readonly deletePageLink: Locator;
+    readonly overviewLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -15,5 +16,6 @@ export abstract class BasePage {
         this.profileLink =  page.getByRole('link', { name: 'administrator' });
         this.addPageLink = page.getByRole('link', { name: 'Add Page' });
         this.deletePageLink = page.getByRole('link', { name: 'Delete' });
+        this.overviewLink = page.getByRole('link', { name: 'Overview' });
     }
 }

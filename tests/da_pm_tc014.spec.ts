@@ -6,7 +6,6 @@ test.describe('Public page', () => {
     await loginPage.gotoLoginPage();
     //Log in specific repository with valid account
     await loginPage.login("Administrator","");
-    //Go to Global Setting -> Add page 
     await publicPage.addPage({name: "TC014"});
     //Click on Log out link
     await loginPage.logout("administrator");
@@ -19,7 +18,7 @@ test.describe('Public page', () => {
     //Log in with another valid account (potay!)
     // await loginPage.login("Administrator","");
 
-    await publicPage.removePage("TC014");
+    await publicPage.removePage({name: "TC014"}, "Are you sure you want to remove this page?");
     });
 });
 
