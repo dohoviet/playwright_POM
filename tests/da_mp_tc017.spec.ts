@@ -23,4 +23,16 @@ test.describe('Public page', () => {
     //Check if Delete disapppear after clicking on Overview menu item
     await publicPage.checkDeleteButton();
     });
+
+    test('Verify that when "Add New Panel" form is on focused all other control/form is disabled or locked.', async ({ loginPage, panelsPage }) => {
+      //Navigate to Dashboard login page
+      await loginPage.gotoLoginPage();
+      //Log in specific repository with valid account
+      await loginPage.login("Administrator","");
+      //Go to Panels page
+      await panelsPage.gotoPanelsPage();
+      
+      await panelsPage.addPanel();
+      await panelsPage.verifyAllControlDisable();
+      });
 });

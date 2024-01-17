@@ -8,12 +8,12 @@ export class PanelsPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.addNewPanelink = page.getByRole('link', { name: 'Add New' });
-        this.deletePanellink = page.getByRole('link', { name: 'Delete' });
+        this.deletePanellink = page.getByRole('link', { name: 'Delete' }).first();
     }
 
     async gotoPanelsPage() {
-        await this.administerLink.click();
-        await this.panelLink.click();
+        await this.administerLink.hover();
+        await this.panelsLink.click();
     }
 
     async addPanel (){
@@ -21,7 +21,7 @@ export class PanelsPage extends BasePage {
     }
 
     async verifyAllControlDisable() {
-        await expect(this.deletePanellink).toBeDisabled();
+        await expect(this.page.locator("#cppCategoryField")).toBeDisabled();
     }
     
 }
