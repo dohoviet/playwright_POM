@@ -12,9 +12,17 @@ export class ProfilessPage extends BasePage {
 
     async open(url?: string){
         await this.page.goto(this.table.baseURL);
+    }
+
+    async getTableById(url: string, tableId: string){
+        this.table.baseURL = url;
+        await this.open();
+        this.table.tableId = tableId;
+        return this.table;
     } 
     async gotoDataProfiles() {
         await this.administerLink.hover();
         await this.panelsLink.click();
     }
+
 }

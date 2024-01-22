@@ -52,7 +52,7 @@ test.describe(`Launch the browser and handle table data`, async () => {
     test(`Increase count of rows and get all names`, async ({ page }) => {
         await page.locator(`select[name='example_length']`).selectOption(`25`);
         await page.waitForTimeout(3000);
-        const allnames = await page.locator(`table#example tbody`).locator(`tr`).locator(`:scope`).locator(`td.sorting_1`).allInnerTexts();
+        const allnames = await page.locator(`table#example tbody`).locator(`tr`).nth(2).locator(`:scope`).locator(`td`).nth(1).allInnerTexts();
         await allnames.forEach((text) => {
             console.log(text);
         });

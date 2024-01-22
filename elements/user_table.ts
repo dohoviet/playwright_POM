@@ -3,19 +3,53 @@ import { Locator, Page } from '@playwright/test';
 //abstract?
 export  class UserTable {
     page: Page;
-    readonly baseURL = 'https://datatables.net/extensions/select/examples/initialisation/checkbox.html';
-    tatbleId: string;
-    readonly logoutLink: Locator;
+    baseURL = 'https://datatables.net/extensions/select/examples/initialisation/checkbox.html';
+    tableId: string = "example";
 
     constructor(page: Page) {
         this.page = page;
-        this.logoutLink =  page.getByRole('link', { name: 'Logout' });
     }
 
     async getRows(){
-        const parentBody = await this.page.locator('table#example tbody');
-        await this.page.waitForTimeout(3000);
-        return (await parentBody.locator('tr').count());
+        // let tatbleId: string = `table#${this.tatbleId} tbody`;
+        // console.log(tatbleId); 
+
+        // const parentBody = await this.page.locator(tatbleId);
+        // this.getTableLocatoryById("example");
+        // await this.page.waitForTimeout(3000);
+        return (this.getTableLocator().locator('tr').count());
+    }
+
+    async getRowData(rowIndex: number){
+        const row_text = await this.getTableLocator().locator(`tr`).nth(rowIndex).locator(`:scope`).allInnerTexts();
+        let rtext = "";
+        await row_text.forEach((text) => {
+            rtext += text;
+        });
+        return rtext;
+    }
+
+    async getCellData(rowIndex: number, columnIndex: number){
+        return await this.getTableLocator().locator(`tr`).nth(rowIndex).locator(`:scope`).locator(`td`).nth(columnIndex).innerText();
+    }
+
+    async getColumnData(columnIndex: number){
+        let arrColumnText = new Array; 
+        let rowCount = await this.getRows();
+        for (let i = 0; i < rowCount; i++) {
+            arrColumnText.push(await this.getCellData(i, columnIndex));
+            // console.log (await this.getCellData(i, columnIndex));
+          }
+        return arrColumnText;
+    }
+
+
+    getTableLocator(): Locator {
+        let parentBody = `table#${this.tableId} tbody`;
+        // let tableId = '';
+        // console.log(parentBody); 
+
+        return this.page.locator(parentBody);
     }
     
 }

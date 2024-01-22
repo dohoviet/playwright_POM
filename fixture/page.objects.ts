@@ -23,6 +23,7 @@ export const test = base.extend<PageObjects>({
     },
     profilesPage: async ({ page }, use) => {
         await use(new ProfilessPage(page));
+        // new ProfilessPage(page);
     },
 });
 
