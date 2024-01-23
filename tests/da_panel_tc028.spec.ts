@@ -11,7 +11,7 @@ test.describe('Panels page', () => {
       
       await panelsPage.addPanel();
 
-      //The right way to check if a dialog is modal
+      //The right way to check if a dialog is modalx
       await expect(panelsPage.overlaydiv).toBeVisible();
 
       //This way is not reccomended!!!

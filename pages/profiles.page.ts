@@ -8,21 +8,19 @@ export class ProfilessPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.table = new UserTable(page);
-        }
-
-    async open(url?: string){
-        await this.page.goto(this.table.baseURL);
     }
 
-    async getTableById(url: string, tableId: string){
-        this.table.baseURL = url;
-        await this.open();
+    async open(url: string){
+        await this.page.goto(url);
+    }
+
+    async getTableById(tableId: string){
         this.table.tableId = tableId;
         return this.table;
     } 
     async gotoDataProfiles() {
         await this.administerLink.hover();
-        await this.panelsLink.click();
+        await this.dataProfileLink.click();
     }
 
 }

@@ -10,6 +10,7 @@ export abstract class BasePage {
     readonly overviewLink: Locator;
     readonly administerLink: Locator;
     readonly panelsLink: Locator;
+    readonly dataProfileLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -21,5 +22,6 @@ export abstract class BasePage {
         this.overviewLink = page.getByRole('link', { name: 'Overview' });
         this.administerLink = page.getByRole('link', { name: 'Administer' });
         this.panelsLink = page.getByRole('link', { name: 'Panels', exact: true });
+        this.dataProfileLink = page.getByRole('link', { name: 'Data Profiles', exact: true });
     }
 }

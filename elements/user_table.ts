@@ -3,7 +3,6 @@ import { Locator, Page } from '@playwright/test';
 //abstract?
 export  class UserTable {
     page: Page;
-    baseURL = 'https://datatables.net/extensions/select/examples/initialisation/checkbox.html';
     tableId: string = "example";
 
     constructor(page: Page) {
@@ -11,12 +10,6 @@ export  class UserTable {
     }
 
     async getRows(){
-        // let tatbleId: string = `table#${this.tatbleId} tbody`;
-        // console.log(tatbleId); 
-
-        // const parentBody = await this.page.locator(tatbleId);
-        // this.getTableLocatoryById("example");
-        // await this.page.waitForTimeout(3000);
         return (this.getTableLocator().locator('tr').count());
     }
 
@@ -38,7 +31,6 @@ export  class UserTable {
         let rowCount = await this.getRows();
         for (let i = 0; i < rowCount; i++) {
             arrColumnText.push(await this.getCellData(i, columnIndex));
-            // console.log (await this.getCellData(i, columnIndex));
           }
         return arrColumnText;
     }
@@ -64,7 +56,6 @@ export  class UserTable {
 
     getTableLocator(): Locator {
         let parentBody = `table#${this.tableId} tbody`;
-        // let tableId = '';
         // console.log(parentBody); 
 
         return this.page.locator(parentBody);
@@ -72,7 +63,6 @@ export  class UserTable {
 
     getTableHeaderLocator(): Locator {
         let thead = `table#${this.tableId} thead`;
-        // let tableId = '';
         // console.log(parentBody); 
 
         return this.page.locator(thead);
