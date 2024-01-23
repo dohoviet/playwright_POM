@@ -3,20 +3,18 @@ import { BasePage } from "./base.page";
 import { UserTable } from "../elements/user_table";
 
 export class ProfilessPage extends BasePage {
-    readonly table: UserTable;
+    readonly tblDataProfiles = new UserTable(this.page.locator('table#example'));
 
     constructor(page: Page) {
         super(page);
-        this.table = new UserTable(page);
     }
 
     async open(url: string){
         await this.page.goto(url);
     }
 
-    async getTableById(tableId: string){
-        this.table.tableId = tableId;
-        return this.table;
+    async getTable(){
+        return this.tblDataProfiles;
     } 
     async gotoDataProfiles() {
         await this.administerLink.hover();

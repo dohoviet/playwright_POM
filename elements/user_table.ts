@@ -2,19 +2,17 @@ import { Locator, Page } from '@playwright/test';
 
 //abstract?
 export  class UserTable {
-    page: Page;
-    tableId: string = "example";
+    tableLocator: Locator;
 
-    constructor(page: Page) {
-        this.page = page;
+    constructor(locator: Locator) {
+        this.tableLocator = locator;
     }
-
     async getRows(){
-        return (this.getTableLocator().locator('tr').count());
+        return (this.getTableBodyLocator().locator('tr').count());
     }
 
     async getRowData(rowIndex: number){
-        const row_text = await this.getTableLocator().locator(`tr`).nth(rowIndex).locator(`:scope`).allInnerTexts();
+        const row_text = await this.getTableBodyLocator().locator(`tr`).nth(rowIndex).locator(`:scope`).allInnerTexts();
         let rtext = "";
         await row_text.forEach((text) => {
             rtext += text;
@@ -23,7 +21,7 @@ export  class UserTable {
     }
 
     async getCellData(rowIndex: number, columnIndex: number){
-        return await this.getTableLocator().locator(`tr`).nth(rowIndex).locator(`:scope`).locator(`td`).nth(columnIndex).innerText();
+        return await this.getTableBodyLocator().locator(`tr`).nth(rowIndex).locator(`:scope`).locator(`td`).nth(columnIndex).innerText();
     }
 
     async getColumnData(columnIndex: number){
@@ -54,18 +52,19 @@ export  class UserTable {
         return arrColumnText;
     }
 
-    getTableLocator(): Locator {
-        let parentBody = `table#${this.tableId} tbody`;
-        // console.log(parentBody); 
+    getTableBodyLocator(): Locator {
+        // let parentBody = 'table#${this.tableId} tbody';
+        // // console.log(parentBody); 
 
-        return this.page.locator(parentBody);
+        // return this.page.locator(parentBody);
+        return this.tableLocator.locator("tbody");
     }
 
     getTableHeaderLocator(): Locator {
-        let thead = `table#${this.tableId} thead`;
+        // let thead = `table#example thead`;
         // console.log(parentBody); 
 
-        return this.page.locator(thead);
+        return this.tableLocator.locator("thead");
     }
     
 }
