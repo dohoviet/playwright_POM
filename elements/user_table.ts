@@ -43,6 +43,24 @@ export  class UserTable {
         return arrColumnText;
     }
 
+    async getColumnDataByName(columnName: string){
+        let arrColumnText = new Array; 
+        let columnIndex = -1;
+        const columns = await this.getTableHeaderLocator().locator(`tr`).nth(0).locator(`th`).count();
+        for (let j = 0; j < columns; j++) {
+            if(await this.getTableHeaderLocator().locator(`tr`).nth(0).locator(`th`).nth(j).innerText()===columnName) {
+                columnIndex=j;
+                break;
+            }
+        }
+
+        let rowCount = await this.getRows();
+        for (let i = 0; i < rowCount; i++) {
+            arrColumnText.push(await this.getCellData(i, columnIndex));
+            // console.log (await this.getCellData(i, columnIndex));
+          }
+        return arrColumnText;
+    }
 
     getTableLocator(): Locator {
         let parentBody = `table#${this.tableId} tbody`;
@@ -50,6 +68,14 @@ export  class UserTable {
         // console.log(parentBody); 
 
         return this.page.locator(parentBody);
+    }
+
+    getTableHeaderLocator(): Locator {
+        let thead = `table#${this.tableId} thead`;
+        // let tableId = '';
+        // console.log(parentBody); 
+
+        return this.page.locator(thead);
     }
     
 }
