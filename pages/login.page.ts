@@ -14,7 +14,7 @@ export class LoginPage extends BasePage {
     }
 
     async gotoLoginPage() {
-        await this.page.goto("http://localhost/TADashboard/login.jsp");
+        await this.page.goto("/TADashboard/login.jsp");
     }
 
     async login (username: string, password: string){

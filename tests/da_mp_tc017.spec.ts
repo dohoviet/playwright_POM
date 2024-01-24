@@ -10,7 +10,7 @@ test.describe('Public page', () => {
     // Go to Global Setting -> Add page "Test"
     await publicPage.addPage({name: Constant.PAGENAME});
     // Go to Global Setting -> Add page "Test Child"
-    await publicPage.addPage({name: Constant.PAGENAME, parent: Constant.CHILD_PAGENAME});
+    await publicPage.addPage({name: Constant.CHILD_PAGENAME, parent: Constant.PAGENAME});
     // Delete parent page
     await publicPage.removePage({name: Constant.PAGENAME}, "Are you sure you want to remove this page?");
     // Delete child page

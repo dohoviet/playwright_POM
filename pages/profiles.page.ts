@@ -3,8 +3,9 @@ import { BasePage } from "./base.page";
 import { UserTable } from "../elements/user_table";
 
 export class ProfilessPage extends BasePage {
-    readonly tblDataProfiles = new UserTable(this.page.locator('table#example'));
-
+    // readonly tblDataProfiles = new UserTable(this.page.locator('table#example'));
+    readonly tblDataProfiles = new UserTable(this.page.locator('table.GridView'));
+    
     constructor(page: Page) {
         super(page);
     }

@@ -9,11 +9,11 @@ export  class UserTable {
     }
     
     async getRows(){
-        return ( this.tableLocator.locator("tbody").locator('tr').count());
+        return await this.tableLocator.locator("tbody").locator('tr').count() -1 ; //Without header
     }
 
     async getRowData(rowIndex: number){
-        const row_text = await  this.tableLocator.locator("tbody").locator(`tr`).nth(rowIndex).locator(`:scope`).allInnerTexts();
+        const row_text = await  this.tableLocator.locator(`tr`).nth(rowIndex).locator(`:scope`).allInnerTexts();
         let rtext = "";
         await row_text.forEach((text) => {
             rtext += text;
@@ -22,33 +22,28 @@ export  class UserTable {
     }
 
     async getCellData(rowIndex: number, columnIndex: number){
-        return await  this.tableLocator.locator("tbody").locator(`tr`).nth(rowIndex).locator(`:scope`).locator(`td`).nth(columnIndex).innerText();
+        // return await  this.tableLocator.locator("tbody").locator(`tr`).nth(rowIndex).locator(`:scope`).locator(`td`).nth(columnIndex).innerText();
+        return await  this.tableLocator.locator(`tr`).nth(rowIndex).locator(`:scope`).locator(`td`).nth(columnIndex).innerText();
     }
 
     async getColumnData(columnIndex: number){
         let arrColumnText = new Array; 
         let rowCount = await this.getRows();
-        for (let i = 0; i < rowCount; i++) {
-            arrColumnText.push(await this.getCellData(i, columnIndex));
+        for (let i = 1; i < rowCount; i++) {
+            arrColumnText.push((await this.getCellData(i, columnIndex)).replace(/\s+/g, ' ').trim());
           }
         return arrColumnText;
     }
 
     async getColumnDataByName(columnName: string){
         let arrColumnText = new Array; 
-        let columnIndex = -1;
-        const columns = await this.tableLocator.locator("thead").locator(`tr`).nth(0).locator(`th`).count();
+        const columns = await this.tableLocator.locator(`tr`).nth(0).locator(`th`).count();
         for (let j = 0; j < columns; j++) {
-            if(await this.tableLocator.locator("thead").locator(`tr`).nth(0).locator(`th`).nth(j).innerText()===columnName) {
-                columnIndex=j;
+            if(await this.tableLocator.locator(`tr`).nth(0).locator(`th`).nth(j).innerText()===columnName) {
+                arrColumnText = await this.getColumnData(j);
                 break;
             }
         }
-
-        let rowCount = await this.getRows();
-        for (let i = 0; i < rowCount; i++) {
-            arrColumnText.push(await this.getCellData(i, columnIndex));
-          }
         return arrColumnText;
     }
 }

@@ -39,7 +39,7 @@ export class PublicPage extends BasePage {
         //Check Public checkbox
         await this.publicCheckbox.check();
         //Click OK button
-        await this.okButton.click();
+        await this.okButton.click(); 
     }
 
     async removePage(pageinfo: {name: string, parent?: string}, errMessage: string) {
